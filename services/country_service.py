@@ -1,3 +1,4 @@
+from models import country
 from models.country import Country
 from dto.country_dto import CountryDTO
 from app import db
@@ -22,6 +23,17 @@ def create(entity):
 
 def delete(name):
     entity = Country.query.get_or_404(name)
-    db.session.delete(country_name)
+    db.session.delete(entity)
     db.session.commit()
     return {'message': 'Country deleted successfully'}
+
+
+def update(name, entity):
+    update_entity = Country.query.get_or_404(name)
+    update_entity.country_name = entity['country_name']
+    db.session.add(update_entity)
+    db.session.commit()
+    return CountryDTO.to_dict(update_entity)
+
+
+=
