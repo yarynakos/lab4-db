@@ -1,4 +1,3 @@
-from models import country
 from models.country import Country
 from dto.country_dto import CountryDTO
 from app import db
@@ -35,5 +34,3 @@ def update(name, entity):
     db.session.commit()
     return CountryDTO.to_dict(update_entity)
 
-
-=
