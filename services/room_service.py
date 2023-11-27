@@ -14,7 +14,7 @@ def find_by_id(id):
 
 
 def create(entity):
-    new_entity = Room(room_id=entity['room_id'], room_name=entity['room_name'],
+    new_entity = Room(room_name=entity['room_name'],
                       type_of_room=entity['type_of_room'], zone_id=entity['zone_id'], object_id=entity['object_id'])
     db.session.add(new_entity)
     db.session.commit()
@@ -28,9 +28,12 @@ def delete(id):
     return {'message': 'Room deleted successfully'}
 
 
-def update(name, entity):
-    update_entity = Room.query.get_or_404(name)
-    update_entity.country_name = entity['room_id']
+def update(id, entity):
+    update_entity = Room.query.get_or_404(id)
+    update_entity.room_name = entity['room_name']
+    update_entity.type_of_room = entity['type_of_room']
+    update_entity.zone_id = entity['zone_id']
+    update_entity.object_id = entity['object_id']
     db.session.add(update_entity)
     db.session.commit()
     return RoomDTO.to_dict(update_entity)

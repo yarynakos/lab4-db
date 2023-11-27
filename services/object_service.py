@@ -14,7 +14,7 @@ def find_by_id(id):
 
 
 def create(entity):
-    new_entity = Object(object_id=entity['object_id'], type_of_object=entity['type_of_object'],
+    new_entity = Object(type_of_object=entity['type_of_object'],
                         number_of_flors=entity['number_of_flors'], city_id=entity['city_id'])
     db.session.add(new_entity)
     db.session.commit()
@@ -28,9 +28,11 @@ def delete(id):
     return {'message': 'Object deleted successfully'}
 
 
-def update(name, entity):
-    update_entity = Object.query.get_or_404(name)
-    update_entity.country_name = entity['object_id']
+def update(id, entity):
+    update_entity = Object.query.get_or_404(id)
+    update_entity.type_of_notification = entity['type_of_object']
+    update_entity.time_of_notification = entity['number_of_flors']
+    update_entity.city_id = entity['city_id']
     db.session.add(update_entity)
     db.session.commit()
     return ObjectDTO.to_dict(update_entity)

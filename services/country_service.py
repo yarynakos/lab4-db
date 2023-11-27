@@ -25,12 +25,3 @@ def delete(name):
     db.session.delete(entity)
     db.session.commit()
     return {'message': 'Country deleted successfully'}
-
-
-def update(name, entity):
-    update_entity = Country.query.get_or_404(name)
-    update_entity.country_name = entity['country_name']
-    db.session.add(update_entity)
-    db.session.commit()
-    return CountryDTO.to_dict(update_entity)
-

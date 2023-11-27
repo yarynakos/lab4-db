@@ -14,7 +14,7 @@ def find_by_id(id):
 
 
 def create(entity):
-    new_entity = City(id=entity['city_id'], city_name=entity['city_name'], country_name=entity['country_name'])
+    new_entity = City(city_name=entity['city_name'], country_name=entity['country_name'])
     db.session.add(new_entity)
     db.session.commit()
     return CityDTO.to_dict(new_entity)
@@ -27,9 +27,10 @@ def delete(id):
     return {'message': 'City deleted successfully'}
 
 
-def update(name, entity):
-    update_entity = City.query.get_or_404(name)
-    update_entity.country_name = entity['city_id']
+def update(id, entity):
+    update_entity = City.query.get_or_404(id)
+    update_entity.city_name = entity['city_name']
+    update_entity.country_name = entity['country_name']
     db.session.add(update_entity)
     db.session.commit()
     return CityDTO.to_dict(update_entity)

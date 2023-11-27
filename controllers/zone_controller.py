@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from services.zone_service import find_all, find_by_id, create, delete
+from services.zone_service import find_all, find_by_id, create, delete, update
 
 zone = Blueprint('zone', __name__)
 
@@ -27,8 +27,8 @@ def remove_entity(id):
     return delete(id)
 
 
-@zone.route('/<string:name>', methods=['PUT'])
-def update_entity(name):
+@zone.route('/<int:id>', methods=['PUT'])
+def update_entity(id):
     entity = request.get_json()
-    result = entity(id, entity)
+    result = update(id, entity)
     return jsonify(result)

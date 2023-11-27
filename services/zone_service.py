@@ -14,7 +14,7 @@ def find_by_id(id):
 
 
 def create(entity):
-    new_entity = Zone(zone_id=entity['zone_id'], zone_name=entity['zone_name'],
+    new_entity = Zone(zone_name=entity['zone_name'],
                       access_level_name=entity['access_level_name'], object_id=entity['object_id'])
     db.session.add(new_entity)
     db.session.commit()
@@ -28,9 +28,11 @@ def delete(id):
     return {'message': 'Zone deleted successfully'}
 
 
-def update(name, entity):
-    update_entity = Zone.query.get_or_404(name)
-    update_entity.country_name = entity['zone_id']
+def update(id, entity):
+    update_entity = Zone.query.get_or_404(id)
+    update_entity.zone_name = entity['zone_name']
+    update_entity.object_id = entity['object_id']
+    update_entity.access_level_name = entity['access_level_name']
     db.session.add(update_entity)
     db.session.commit()
     return ZoneDTO.to_dict(update_entity)

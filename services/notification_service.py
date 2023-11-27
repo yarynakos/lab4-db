@@ -14,8 +14,7 @@ def find_by_id(id):
 
 
 def create(entity):
-    new_entity = Notification(notification_id=entity['notification_id'],
-                              type_of_notification=entity['type_of_notification'],
+    new_entity = Notification(type_of_notification=entity['type_of_notification'],
                               time_of_notification=entity['time_of_notification'],
                               text_of_notification=entity['text_of_notification'],
                               user_id=entity['user_id'],
@@ -33,9 +32,14 @@ def delete(id):
     return {'message': 'Notification deleted successfully'}
 
 
-def update(name, entity):
-    update_entity = Notification.query.get_or_404(name)
-    update_entity.country_name = entity['notification_id']
+def update(id, entity):
+    update_entity = Notification.query.get_or_404(id)
+    update_entity.type_of_notification = entity['type_of_notification']
+    update_entity.time_of_notification = entity['time_of_notification']
+    update_entity.text_of_notification = entity['text_of_notification']
+    update_entity.user_id = entity['user_id']
+    update_entity.object_id = entity['object_id']
+    update_entity.sensor_id = entity['sensor_id']
     db.session.add(update_entity)
     db.session.commit()
     return NotificationDTO.to_dict(update_entity)

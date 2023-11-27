@@ -25,12 +25,3 @@ def delete(name):
     db.session.delete(entity)
     db.session.commit()
     return {'message': 'AccessLevel deleted successfully'}
-
-
-def update(name, entity):
-    update_entity = AccessLevel.query.get_or_404(name)
-    update_entity.country_name = entity['access_level_name']
-    db.session.add(update_entity)
-    db.session.commit()
-    return CountryDTO.to_dict(update_entity)
-
