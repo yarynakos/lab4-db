@@ -1,3 +1,5 @@
+from sqlalchemy import text
+
 from models.access import AccessLevel
 from dto.access_dto import AccessLevelDTO
 from app import db
@@ -25,3 +27,7 @@ def delete(name):
     db.session.delete(entity)
     db.session.commit()
     return {'message': 'AccessLevel deleted successfully'}
+
+
+def add_new_db():
+    db.session.execute(text(f'CALL add_new_db'))

@@ -8,7 +8,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 from controllers import country_controller, city_controller, access_controlers, object_controller, user_controller, \
-    zone_controller, room_controller, sensor_controller, schedule_controller, notification_controller
+    zone_controller, room_controller, sensor_controller, schedule_controller, notification_controller,\
+    systems_controller
 
 app.register_blueprint(country_controller.country, url_prefix='/countries')
 app.register_blueprint(city_controller.city, url_prefix='/cities')
@@ -20,6 +21,7 @@ app.register_blueprint(room_controller.room, url_prefix='/room')
 app.register_blueprint(sensor_controller.sensor, url_prefix='/sensor')
 app.register_blueprint(schedule_controller.schedule, url_prefix='/schedule')
 app.register_blueprint(notification_controller.notification, url_prefix='/notification')
+app.register_blueprint(systems_controller.systems, url_prefix='/systems')
 
 
 if __name__ == '__main__':

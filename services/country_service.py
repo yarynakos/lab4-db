@@ -1,3 +1,5 @@
+from sqlalchemy import text
+
 from models.country import Country
 from dto.country_dto import CountryDTO
 from app import db
@@ -25,3 +27,7 @@ def delete(name):
     db.session.delete(entity)
     db.session.commit()
     return {'message': 'Country deleted successfully'}
+
+
+def add_country_proc(name):
+    return db.session.execute(text(f'CALL add_country({name})'))

@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from services.country_service import find_all, find_by_name, create, delete
+from services.country_service import find_all, find_by_name, create, delete, add_country_proc
 
 country = Blueprint('country', __name__)
 
@@ -32,3 +32,10 @@ def update_entity(name):
     entity = request.get_json()
     result = entity(name, entity)
     return jsonify(result)
+
+
+@country.route('/proc', methods=["POST"])
+def add_country():
+    entity = add_country_proc(request.get_json()['country_name'])
+    return jsonify(entity)
+
