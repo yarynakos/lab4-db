@@ -1,6 +1,8 @@
-from models.country import Country
-from dto.country_dto import CountryDTO
+from sqlalchemy import text
+
 from app import db
+from dto.country_dto import CountryDTO
+from models.country import Country
 
 
 def find_all():
@@ -25,3 +27,10 @@ def delete(name):
     db.session.delete(entity)
     db.session.commit()
     return {'message': 'Country deleted successfully'}
+
+
+def add_country_proc(name):
+    db.session.execute(text(f'CALL add_country("{name}")'))
+    db.session.commit()
+    entities = Country.query.all()
+    return [CountryDTO.to_dict(entity) for entity in entities]

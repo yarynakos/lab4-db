@@ -1,6 +1,8 @@
+from sqlalchemy import text
+
+from app import db
 from dto.city_dto import CityDTO
 from models.city import City
-from app import db
 
 
 def find_all():
@@ -35,3 +37,11 @@ def update(id, entity):
     db.session.commit()
     return CityDTO.to_dict(update_entity)
 
+
+def add_ten(cityName):
+    print(cityName)
+    querry = text(f'CALL add_ten_cities("{cityName}")')
+    db.session.execute(querry)
+    db.session.commit()
+    entities = City.query.all()
+    return [CityDTO.to_dict(entity) for entity in entities]

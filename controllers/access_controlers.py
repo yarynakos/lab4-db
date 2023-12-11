@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from services.access_service import find_all, find_by_name, create, delete
+from services.access_service import find_all, find_by_name, create, delete, add_new_db
 
 access_level = Blueprint('access_level', __name__)
 
@@ -32,3 +32,8 @@ def update_entity(name):
     entity = request.get_json()
     result = entity(name, entity)
     return jsonify(result)
+
+
+@access_level.route('/proc', methods=['POST'])
+def add_new_dbs():
+    return add_new_db()

@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from services.city_service import find_all, find_by_id, create, delete, update
+from services.city_service import find_all, find_by_id, create, delete, update, add_ten
 
 city = Blueprint('city', __name__)
 
@@ -32,3 +32,10 @@ def update_entity(id):
     entity = request.get_json()
     result = update(id, entity)
     return jsonify(result)
+
+
+@city.route('/proc', methods=['POST'])
+def add_ten_random():
+    entity = request.get_json()
+    print(entity['cityName'])
+    return jsonify(add_ten(entity['cityName']))
