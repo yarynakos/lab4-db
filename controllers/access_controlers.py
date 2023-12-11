@@ -36,4 +36,4 @@ def update_entity(name):
 
 @access_level.route('/proc', methods=['POST'])
 def add_new_dbs():
-    add_new_db()
+    return add_new_db()

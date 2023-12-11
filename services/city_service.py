@@ -1,6 +1,6 @@
+from app import db
 from dto.city_dto import CityDTO
 from models.city import City
-from app import db
 
 
 def find_all():
@@ -35,3 +35,13 @@ def update(id, entity):
     db.session.commit()
     return CityDTO.to_dict(update_entity)
 
+
+def add_ten(cityName):
+    print(cityName)
+    conn = db.engine.raw_connection()
+    conn.cursor().callproc('add_ten_cities', [{'cityName': cityName}])
+    conn.close()
+    # querry = text(f'CALL add_ten_cities({cityName})')
+    # db.session.execute(querry)
+    entities = City.query.all()
+    return [CityDTO.to_dict(entity) for entity in entities]

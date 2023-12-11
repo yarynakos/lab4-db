@@ -134,7 +134,7 @@ CREATE TRIGGER check_if_name_is_from_list
     ON user
     FOR EACH ROW
 BEGIN
-	IF(new.Name NOT REGEXP("(Svitlana|Petro|Olha|Taras)")) THEN
+	IF(new.Name NOT RLIKE("(Svitlana|Petro|Olha|Taras)")) THEN
 		SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "Name is not from list";
 	END IF;
 END //

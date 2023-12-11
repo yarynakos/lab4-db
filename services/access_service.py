@@ -31,3 +31,4 @@ def delete(name):
 
 def add_new_db():
     db.session.execute(text(f'CALL add_new_db'))
+    return 'ok'
