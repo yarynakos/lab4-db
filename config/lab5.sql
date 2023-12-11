@@ -88,7 +88,7 @@ BEGIN
     addName: LOOP
 		IF count > 10 THEN LEAVE addName;
         END IF;
-		INSERT INTO city(name, country_name) VALUES(CONCAT(cityName, "-", count), "France");
+		INSERT INTO city(city_name, country_name) VALUES(CONCAT(cityName, "-", count), "France");
         SET count = count + 1;
 	END LOOP;
 END//
@@ -124,7 +124,7 @@ CREATE TRIGGER check_name_what_end_with_two_zero
     ON country
     FOR EACH ROW
 BEGIN
-	IF (new.Country_name REGEXP("00$")) THEN
+	IF (new.Country_name RLIKE("00$")) THEN
 		SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "Name can not end with two 0";
 	END IF;
 END //

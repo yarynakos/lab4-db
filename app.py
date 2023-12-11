@@ -11,7 +11,7 @@ from controllers import country_controller, city_controller, access_controlers, 
     zone_controller, room_controller, sensor_controller, schedule_controller, notification_controller,\
     systems_controller
 
-# app.register_blueprint(country_controller.countries, url_prefix='/countries')
+app.register_blueprint(country_controller.countries, url_prefix='/countries')
 app.register_blueprint(city_controller.city, url_prefix='/cities')
 app.register_blueprint(access_controlers.access_level, url_prefix='/access')
 app.register_blueprint(object_controller.object, url_prefix='/object')
@@ -23,6 +23,8 @@ app.register_blueprint(schedule_controller.schedule, url_prefix='/schedule')
 app.register_blueprint(notification_controller.notification, url_prefix='/notification')
 app.register_blueprint(systems_controller.systems, url_prefix='/systems')
 
+with app.app_context():
+    db.create_all()
 
 if __name__ == '__main__':
     app.run()

@@ -1,3 +1,5 @@
+from sqlalchemy import text
+
 from app import db
 from dto.city_dto import CityDTO
 from models.city import City
@@ -38,10 +40,8 @@ def update(id, entity):
 
 def add_ten(cityName):
     print(cityName)
-    conn = db.engine.raw_connection()
-    conn.cursor().callproc('add_ten_cities', [{'cityName': cityName}])
-    conn.close()
-    # querry = text(f'CALL add_ten_cities({cityName})')
-    # db.session.execute(querry)
+    querry = text(f'CALL add_ten_cities("{cityName}")')
+    db.session.execute(querry)
+    db.session.commit()
     entities = City.query.all()
     return [CityDTO.to_dict(entity) for entity in entities]

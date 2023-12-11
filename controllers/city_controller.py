@@ -33,7 +33,9 @@ def update_entity(id):
     result = update(id, entity)
     return jsonify(result)
 
+
 @city.route('/proc', methods=['POST'])
 def add_ten_random():
     entity = request.get_json()
+    print(entity['cityName'])
     return jsonify(add_ten(entity['cityName']))
